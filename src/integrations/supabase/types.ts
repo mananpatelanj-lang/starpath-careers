@@ -14,7 +14,54 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      career_data: {
+        Row: {
+          ai_resistance: string
+          bhagyank_name: string
+          careers: string[]
+          challenges: string
+          combination_code: string
+          created_at: string | null
+          financial_potential: string
+          industry_focus: string
+          market_demand: string
+          mulank_name: string
+          special_insight: string
+          strengths: string
+          success_formula: string
+        }
+        Insert: {
+          ai_resistance: string
+          bhagyank_name: string
+          careers: string[]
+          challenges: string
+          combination_code: string
+          created_at?: string | null
+          financial_potential: string
+          industry_focus: string
+          market_demand: string
+          mulank_name: string
+          special_insight: string
+          strengths: string
+          success_formula: string
+        }
+        Update: {
+          ai_resistance?: string
+          bhagyank_name?: string
+          careers?: string[]
+          challenges?: string
+          combination_code?: string
+          created_at?: string | null
+          financial_potential?: string
+          industry_focus?: string
+          market_demand?: string
+          mulank_name?: string
+          special_insight?: string
+          strengths?: string
+          success_formula?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
