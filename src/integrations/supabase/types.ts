@@ -62,6 +62,84 @@ export type Database = {
         }
         Relationships: []
       }
+      numerology_numbers: {
+        Row: {
+          career_paths: string[]
+          compatible_numbers: number[]
+          created_at: string
+          description: string
+          id: string
+          life_path_guidance: string
+          lucky_colors: string[]
+          name: string
+          number: number
+          personality_traits: string
+          strengths: string[]
+          title: string
+          weaknesses: string[]
+        }
+        Insert: {
+          career_paths: string[]
+          compatible_numbers: number[]
+          created_at?: string
+          description: string
+          id?: string
+          life_path_guidance: string
+          lucky_colors: string[]
+          name: string
+          number: number
+          personality_traits: string
+          strengths: string[]
+          title: string
+          weaknesses: string[]
+        }
+        Update: {
+          career_paths?: string[]
+          compatible_numbers?: number[]
+          created_at?: string
+          description?: string
+          id?: string
+          life_path_guidance?: string
+          lucky_colors?: string[]
+          name?: string
+          number?: number
+          personality_traits?: string
+          strengths?: string[]
+          title?: string
+          weaknesses?: string[]
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          created_at: string
+          email: string
+          id: string
+          last_unlock_date: string | null
+          unlocked_combinations: string[] | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          id?: string
+          last_unlock_date?: string | null
+          unlocked_combinations?: string[] | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          id?: string
+          last_unlock_date?: string | null
+          unlocked_combinations?: string[] | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
