@@ -7,7 +7,6 @@ import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
 import { AdPlacement } from './AdPlacement';
 import { StarfieldBackground } from './StarfieldBackground';
-import { useSEO } from '@/hooks/useSEO';
 
 interface HomePageProps {
   user: SupabaseUser | null;
@@ -30,13 +29,6 @@ const numberDescriptions = [
 export function HomePage({ user, onNavigate, onAuthRequired }: HomePageProps) {
   const [userProfile, setUserProfile] = useState<any>(null);
   const { toast } = useToast();
-
-  // SEO optimization for homepage
-  useSEO({
-    title: 'Numerology Insights - Discover Your Numbers 1-9',
-    description: 'Unlock the secrets of numerology with personalized insights for numbers 1-9. Discover your strengths, career paths, and life guidance through ancient wisdom. Watch ads to unlock premium content.',
-    canonical: '/'
-  }, '/');
 
   useEffect(() => {
     if (user) {

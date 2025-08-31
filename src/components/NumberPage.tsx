@@ -6,7 +6,6 @@ import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
 import { User } from '@supabase/supabase-js';
 import { AdPlacement } from './AdPlacement';
-import { useSEO } from '@/hooks/useSEO';
 
 interface NumberData {
   number: number;
@@ -36,15 +35,6 @@ export function NumberPage({ number, user, onBack, onAuthRequired }: NumberPageP
   const [canUnlock, setCanUnlock] = useState(false);
   const [isWatchingAd, setIsWatchingAd] = useState(false);
   const { toast } = useToast();
-
-  // SEO optimization for number pages
-  useSEO({
-    title: numberData ? `Number ${number} - ${numberData.name} | Numerology Insights` : `Number ${number} - Numerology Insights`,
-    description: numberData 
-      ? `Discover the complete numerology profile for number ${number} (${numberData.name}). Unlock career paths, personality traits, strengths, and life guidance through ancient numerological wisdom.`
-      : `Explore the secrets of numerology number ${number}. Discover personality traits, career guidance, and life insights.`,
-    canonical: `/number/${number}`
-  }, `/number/${number}`);
 
   useEffect(() => {
     fetchNumberData();
@@ -277,17 +267,17 @@ export function NumberPage({ number, user, onBack, onAuthRequired }: NumberPageP
                     <Button 
                       onClick={handleWatchAd} 
                       disabled={isWatchingAd}
-                      className="btn-cosmic pulse-cosmic"
+                      className="btn-cosmic"
                     >
                       {isWatchingAd ? (
                         <>
                           <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                          Loading ad...
+                          Watching Ad...
                         </>
                       ) : (
                         <>
                           <Play className="w-4 h-4 mr-2" />
-                          Watch 1 ad to see this result
+                          Watch Ad to Unlock
                         </>
                       )}
                     </Button>
