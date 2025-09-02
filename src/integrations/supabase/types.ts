@@ -14,6 +14,33 @@ export type Database = {
   }
   public: {
     Tables: {
+      allowed_domains: {
+        Row: {
+          domain: string
+        }
+        Insert: {
+          domain: string
+        }
+        Update: {
+          domain?: string
+        }
+        Relationships: []
+      }
+      blocked_domains: {
+        Row: {
+          created_at: string
+          domain: string
+        }
+        Insert: {
+          created_at?: string
+          domain: string
+        }
+        Update: {
+          created_at?: string
+          domain?: string
+        }
+        Relationships: []
+      }
       career_data: {
         Row: {
           ai_resistance: string
@@ -59,6 +86,33 @@ export type Database = {
           special_insight?: string
           strengths?: string
           success_formula?: string
+        }
+        Relationships: []
+      }
+      legal_content: {
+        Row: {
+          content: string
+          created_at: string
+          id: string
+          slug: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          content: string
+          created_at?: string
+          id?: string
+          slug: string
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          content?: string
+          created_at?: string
+          id?: string
+          slug?: string
+          title?: string
+          updated_at?: string
         }
         Relationships: []
       }
@@ -110,6 +164,39 @@ export type Database = {
         }
         Relationships: []
       }
+      professions: {
+        Row: {
+          bhagyank: number
+          bhagyank_name: string
+          combination_code: string
+          created_at: string
+          id: string
+          mulank: number
+          mulank_name: string
+          professions: string[]
+        }
+        Insert: {
+          bhagyank: number
+          bhagyank_name: string
+          combination_code: string
+          created_at?: string
+          id?: string
+          mulank: number
+          mulank_name: string
+          professions: string[]
+        }
+        Update: {
+          bhagyank?: number
+          bhagyank_name?: string
+          combination_code?: string
+          created_at?: string
+          id?: string
+          mulank?: number
+          mulank_name?: string
+          professions?: string[]
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           created_at: string
@@ -137,6 +224,39 @@ export type Database = {
           unlocked_combinations?: string[] | null
           updated_at?: string
           user_id?: string
+        }
+        Relationships: []
+      }
+      query_history: {
+        Row: {
+          bhagyank: number
+          created_at: string
+          day: number
+          id: string
+          month: number
+          mulank: number
+          user_id: string
+          year: number
+        }
+        Insert: {
+          bhagyank: number
+          created_at?: string
+          day: number
+          id?: string
+          month: number
+          mulank: number
+          user_id: string
+          year: number
+        }
+        Update: {
+          bhagyank?: number
+          created_at?: string
+          day?: number
+          id?: string
+          month?: number
+          mulank?: number
+          user_id?: string
+          year?: number
         }
         Relationships: []
       }
