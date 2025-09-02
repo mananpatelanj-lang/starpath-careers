@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { User } from '@supabase/supabase-js';
+import { trackVirtualPageView } from '@/hooks/useSEO';
 
 interface VirtualRouterProps {
   user: User | null;
@@ -13,10 +14,13 @@ export function VirtualRouter({ user, children }: VirtualRouterProps) {
     // Initialize route from URL
     const path = window.location.pathname;
     setCurrentRoute(path);
+    updateSEOMetadata(path);
 
     // Handle browser back/forward
     const handlePopState = () => {
-      setCurrentRoute(window.location.pathname);
+      const newPath = window.location.pathname;
+      setCurrentRoute(newPath);
+      updateSEOMetadata(newPath);
     };
 
     window.addEventListener('popstate', handlePopState);
@@ -25,32 +29,36 @@ export function VirtualRouter({ user, children }: VirtualRouterProps) {
 
   const navigate = (path: string) => {
     if (path !== currentRoute) {
-      window.history.pushState({}, '', path);
+      // Get page title for tracking
+      const pageTitle = getPageTitle(path);
+      
+      // Update browser history and track pageview
+      trackVirtualPageView(path, pageTitle);
+      
       setCurrentRoute(path);
-      
-      // Update document title and meta tags
       updateSEOMetadata(path);
-      
-      // Send virtual pageview to analytics (if configured)
-      if (typeof window !== 'undefined' && (window as any).gtag) {
-        (window as any).gtag('config', 'GA_MEASUREMENT_ID', {
-          page_path: path,
-        });
-      }
     }
   };
 
+  const getPageTitle = (path: string): string => {
+    if (path === '/') return 'Numerology Insights - Discover Your Numbers';
+    if (path === '/auth') return 'Sign In - Numerology Insights';
+    if (path.startsWith('/number/')) {
+      const number = path.split('/')[2];
+      return `Number ${number} - Numerology Insights`;
+    }
+    return 'Numerology Insights';
+  };
+
   const updateSEOMetadata = (path: string) => {
-    let title = 'Numerology Career Guidance';
-    let description = 'Discover your destiny career through ancient numerology wisdom';
+    let title = getPageTitle(path);
+    let description = 'Unlock the secrets of numerology with personalized insights for numbers 1-9. Discover your strengths, career paths, and life guidance through ancient wisdom.';
     
     if (path.startsWith('/number/')) {
       const number = path.split('/')[2];
-      title = `Number ${number} - Numerology Career Guidance`;
-      description = `Discover the career path and personality traits for numerology number ${number}`;
+      description = `Discover the complete numerology profile for number ${number}. Unlock career insights, personality traits, strengths, and life guidance through ancient numerological wisdom.`;
     } else if (path === '/auth') {
-      title = 'Sign In - Numerology Career Guidance';
-      description = 'Sign in to unlock your personalized numerology career insights';
+      description = 'Sign in to unlock your personalized numerology career insights and access premium content';
     }
     
     document.title = title;
@@ -60,6 +68,13 @@ export function VirtualRouter({ user, children }: VirtualRouterProps) {
     if (metaDescription) {
       metaDescription.setAttribute('content', description);
     }
+    
+    // Update Open Graph tags
+    const ogTitle = document.querySelector('meta[property="og:title"]');
+    if (ogTitle) ogTitle.setAttribute('content', title);
+    
+    const ogDescription = document.querySelector('meta[property="og:description"]');
+    if (ogDescription) ogDescription.setAttribute('content', description);
     
     // Update canonical URL
     const canonical = document.querySelector('link[rel="canonical"]');
