@@ -7,6 +7,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
 import { AdPlacement } from './AdPlacement';
 import { StarfieldBackground } from './StarfieldBackground';
+import { BlogSection } from './BlogSection';
 import { useSEO } from '@/hooks/useSEO';
 
 interface HomePageProps {
@@ -205,6 +206,9 @@ export function HomePage({ user, onNavigate, onAuthRequired }: HomePageProps) {
             ))}
           </div>
         </div>
+
+        {/* Blog Section */}
+        <BlogSection />
 
         {/* Sidebar Ad */}
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
